@@ -10,7 +10,7 @@ generator client {
 // See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
   provider = "sqlite"
-  url      = "file:dev.sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model Session {
@@ -40,7 +40,7 @@ model PickupMethods {
   name        String
   description String?
   zapietId    String?
-  sessionId   String 
+  sessionId   String
   session     Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 }
 
