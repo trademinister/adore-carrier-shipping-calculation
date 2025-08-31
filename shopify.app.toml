@@ -1,0 +1,39 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "fd7f232572a4d98d2da9c498a14a598e"
+name = "Carrier Shipping"
+handle = "carrier-shipping-5"
+application_url = "https://6aee11987615.ngrok-free.app"
+embedded = true
+
+[build]
+include_config_on_deploy = true
+automatically_update_urls_on_dev = true
+
+[webhooks]
+api_version = "2025-07"
+
+[[webhooks.subscriptions]]
+topics = ["app/uninstalled"]
+uri = "/webhooks/app/uninstalled"
+
+[[webhooks.subscriptions]]
+topics = ["app/scopes_update"]
+uri = "/webhooks/app/scopes_update"
+
+[[webhooks.subscriptions]]
+topics = ["locations/create", "locations/update", "locations/delete"]
+uri = "/webhooks/locations"
+
+[access_scopes]
+scopes = "write_shipping,read_shipping,read_locations"
+
+[auth]
+redirect_urls = [
+    "https://6aee11987615.ngrok-free.app/auth/callback",
+    "https://6aee11987615.ngrok-free.app/auth/shopify/callback",
+    "https://6aee11987615.ngrok-free.app/api/auth/callback",
+]
+
+[pos]
+embedded = false
