@@ -11,8 +11,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   const pickupMethod = await prisma.pickupMethods.findMany();
 
+  
   for (const item of data.rate.items) {
     const zapietId = item.properties._ZapietId;
+    console.log(item.properties);
     if (zapietId) {
       const params = new URLSearchParams(zapietId.replace(/&/g, "&"));
       if (params.get("M") === "P") {
