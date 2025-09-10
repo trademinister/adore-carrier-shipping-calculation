@@ -26,6 +26,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         locationName = currentPickupMethod?.name;
         locationDescription = currentPickupMethod?.description;
       } else if (params.get("M") === "S") {
+        console.log(shippingMethod, "shippingMethod!!!");
         locationName = shippingMethod?.name;
         locationDescription = shippingMethod?.description;
       }
