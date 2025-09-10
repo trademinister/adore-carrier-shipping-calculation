@@ -9,7 +9,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   const shippingMethod = await prisma.shippingMethod.findFirst();
 
-  const pickupMethod = await prisma.pickupMethods.findMany();
+  const pickupMethods = await prisma.pickupMethods.findMany();
 
   
   for (const item of data.rate.items) {
@@ -18,9 +18,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     if (zapietId) {
       const params = new URLSearchParams(zapietId.replace(/&/g, "&"));
       if (params.get("M") === "P") {
-        const currentPickupMethod = pickupMethod.find(
+        const currentPickupMethod = pickupMethods.find(
           (method: any) => method.zapietId === params.get("L"),
         );
+        console.log(pickupMethods, "pickupMethods!!!");
+        console.log(currentPickupMethod, "currentPickupMethod!!!");
         locationName = currentPickupMethod?.name;
         locationDescription = currentPickupMethod?.description;
       } else if (params.get("M") === "S") {
