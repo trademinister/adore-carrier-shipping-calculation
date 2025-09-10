@@ -34,7 +34,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   const myRates = [
     {
-      service_name: `.${locationName}`,
+      service_name: `${locationName}`,
       service_code: ".method",
       total_price: "0",
       currency: data.rate.currency,
