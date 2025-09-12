@@ -11,7 +11,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   const pickupMethods = await prisma.pickupMethods.findMany();
 
-  
+  let currentMethod = null;
+
   for (const item of data.rate.items) {
     const zapietId = item.properties._ZapietId;
     console.log(item.properties);
@@ -25,10 +26,12 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         console.log(currentPickupMethod, "currentPickupMethod!!!");
         locationName = currentPickupMethod?.name;
         locationDescription = currentPickupMethod?.description;
+        currentMethod = "pickup";
       } else if (params.get("M") === "S") {
         console.log(shippingMethod, "shippingMethod!!!");
         locationName = shippingMethod?.name;
         locationDescription = shippingMethod?.description;
+        currentMethod = "shipping";
       }
     }
   }
@@ -49,7 +52,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   return new Response(
     JSON.stringify({
-      rates: myRates,
+      rates: currentMethod === "pickup" ? myRates : [],
     }),
     {
       headers: {
